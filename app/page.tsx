@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { User } from "../types/user";
 
@@ -10,7 +12,9 @@ export default function Home() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("/api/users");
+      const response = await fetch(
+        "https://nest-prisma-mongo.onrender.com/users"
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -91,7 +95,7 @@ export default function Home() {
                         <button
                           className="text-indigo-600 hover:text-indigo-900"
                           onClick={() =>
-                            (window.location.href = `/user/${user.id}`)
+                            (window.location.href = `/user?id=${user.id}`)
                           }
                         >
                           View Details
