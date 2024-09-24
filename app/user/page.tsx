@@ -1,10 +1,11 @@
 "use client";
 
+import { Suspense } from "react"; // Nhập Suspense từ React
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import UserDetails from "../../components/UserDetails";
 
-export default function UserPage() {
+const UserDetailsWithSuspense = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -35,11 +36,13 @@ export default function UserPage() {
       };
 
       fetchUser();
+    } else {
+      setError("User ID is missing.");
     }
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading user details...</div>;
   }
 
   if (error) {
@@ -47,8 +50,16 @@ export default function UserPage() {
   }
 
   if (!user) {
-    return <div>No user found.</div>;
+    return <div>No user found with ID: {id}</div>;
   }
 
   return <UserDetails user={user} onBack={() => router.back()} />;
+};
+
+export default function UserPage() {
+  return (
+    <Suspense fallback={<div>Loading page...</div>}>
+      <UserDetailsWithSuspense />
+    </Suspense>
+  );
 }
