@@ -73,6 +73,9 @@ export default function Home() {
                     <th className="py-3 px-4 font-semibold text-indigo-800 border-b border-indigo-200">
                       Last Name
                     </th>
+                    <th className="py-3 px-4 font-semibold text-indigo-800 border-b border-indigo-200">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -93,7 +96,7 @@ export default function Home() {
                       </td>
                       <td className="py-3 px-4 border-b border-indigo-100">
                         <button
-                          className="text-indigo-600 hover:text-indigo-900"
+                          className="view-details-button"
                           onClick={() =>
                             (window.location.href = `/user?id=${user.id}`)
                           }
